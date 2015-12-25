@@ -2,7 +2,7 @@ name := "scalatest-util"
 
 version := "0.1"
 
-organization := "org.waman.scalatest_util"
+organization := "org.waman"
 
 scalaVersion := "2.11.7"
 
