@@ -9,6 +9,12 @@ trait WamanCustomSpec extends FreeSpec with Matchers with FourPhaseInforming{
   //***** Utility methods *****
   def convertImplicitly[T](t: T) = t
 
+  def %(expected: Double) = expected +- (expected.abs * 1e-2)
+  def %%(expected: Double) = expected +- (expected.abs * 1e-4)
+  def %%%(expected: Double) = expected +- (expected.abs * 1e-6)
+  def %%%%(expected: Double) = expected +- (expected.abs * 1e-8)
+  def %(expected: Double, n: Int) = expected +- (expected.abs * Math.pow(0.1, n))
+
   //***** OS *****
   trait WindowsRequirement{
     assume(System.getProperty("os.name").toLowerCase contains "windows")

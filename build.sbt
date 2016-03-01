@@ -1,6 +1,6 @@
 name := "scalatest-util"
 
-version := "0.1"
+version := "0.3"
 
 organization := "org.waman"
 
@@ -18,8 +18,7 @@ encoding := "UTF-8"
 
 // ***** Dependencies *****
 libraryDependencies ++= Seq(
-  "org.scalatest" % "scalatest_2.11" % "2.2.4",
-  "org.scalamock" % "scalamock-scalatest-support_2.11" % "3.2.2"
+  "org.scalatest" % "scalatest_2.11" % "2.2.4"
 )
 
 //***** Options *****
