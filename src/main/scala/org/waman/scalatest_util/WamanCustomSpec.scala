@@ -2,6 +2,7 @@ package org.waman.scalatest_util
 
 import java.nio.file.{FileSystemException, FileSystems, Files}
 
+import org.scalactic.TripleEqualsSupport.Spread
 import org.scalatest.{FreeSpec, Matchers}
 
 trait WamanCustomSpec extends FreeSpec with Matchers with FourPhaseInforming{
@@ -9,11 +10,16 @@ trait WamanCustomSpec extends FreeSpec with Matchers with FourPhaseInforming{
   //***** Utility methods *****
   def convertImplicitly[T](t: T) = t
 
-  def %(expected: Double) = expected +- (expected.abs * 1e-2)
-  def %%(expected: Double) = expected +- (expected.abs * 1e-4)
-  def %%%(expected: Double) = expected +- (expected.abs * 1e-6)
-  def %%%%(expected: Double) = expected +- (expected.abs * 1e-8)
-  def %(expected: Double, n: Int) = expected +- (expected.abs * Math.pow(0.1, n))
+  def %(expected: Double): Spread[Double] = %(expected, 2)
+  def %%(expected: Double): Spread[Double] = %(expected, 4)
+  def %%%(expected: Double): Spread[Double] = %(expected, 6)
+  def %%%%(expected: Double): Spread[Double] = %(expected, 8)
+  def %(expected: Double, n: Int): Spread[Double] = expected +- error(expected, n)
+
+  private def error(expected: Double, n: Int): Double = expected match {
+    case 0.0 => Math.pow(0.1, n)
+    case _ => expected.abs * Math.pow(0.1, n)
+  }
 
   //***** OS *****
   trait WindowsRequirement{
