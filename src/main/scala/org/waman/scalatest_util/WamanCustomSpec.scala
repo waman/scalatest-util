@@ -3,9 +3,11 @@ package org.waman.scalatest_util
 import java.nio.file.{FileSystemException, FileSystems, Files}
 
 import org.scalactic.TripleEqualsSupport.Spread
+import org.scalatest.prop.{PropertyChecks, TableFor1}
 import org.scalatest.{FreeSpec, Matchers}
 
-trait WamanCustomSpec extends FreeSpec with Matchers with FourPhaseInforming{
+trait WamanCustomSpec extends FreeSpec
+    with Matchers with PropertyChecks with FourPhaseInforming{
 
   //***** Utility methods *****
   def convertImplicitly[T](t: T) = t
@@ -46,7 +48,25 @@ trait WamanCustomSpec extends FreeSpec with Matchers with FourPhaseInforming{
     }
   }
 
-  trait PosixFileSystemRequirement{
+  trait PosixFileSystemRequirement {
     assume(FileSystems.getDefault.supportedFileAttributeViews() contains "posix")
   }
+
+  //*********** forCases **********
+  def forCases[A](conversions: TableFor1[A],
+                  filter: A => Boolean)(consumer: A => Unit): Unit =
+    forAll(conversions) { a =>
+      whenever(filter(a)){
+        consumer(a)
+      }
+    }
+
+  def forCases[A, B](conversions: TableFor1[A],
+                     filter: A => Boolean,
+                     map: A => B)(consumer: B => Unit): Unit =
+    forAll(conversions){ a =>
+      whenever(filter(a)){
+        consumer(map(a))
+      }
+    }
 }
