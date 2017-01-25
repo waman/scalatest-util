@@ -1,10 +1,10 @@
 name := "scalatest-util"
 
-version := "0.7"
+version := "0.8"
 
 organization := "org.waman"
 
-scalaVersion := "2.11.7"
+scalaVersion := "2.12.1"
 
 
 //***** Custom settings *****
@@ -18,9 +18,9 @@ encoding := "UTF-8"
 
 // ***** Dependencies *****
 libraryDependencies ++= Seq(
-  "org.scalatest" % "scalatest_2.11" % "2.2.6",
-  "org.scalacheck" % "scalacheck_2.11" % "1.12.5",
-  "org.scala-lang.modules" % "scala-xml_2.11" % "1.0.4"
+  "org.scalatest" % "scalatest_2.12" % "3.0.1",
+  "org.scalacheck" % "scalacheck_2.12" % "1.13.4"//,
+  //"org.scala-lang.modules" % "scala-xml_2.12" % "1.0.4"
 )
 
 //***** Options *****
